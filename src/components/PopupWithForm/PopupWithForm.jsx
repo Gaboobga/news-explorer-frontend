@@ -1,7 +1,24 @@
-function PopupWithForm() {
+import './PopupWithForm.css';
+
+function PopupWithForm({ isOpen, onClose, title, children, buttonText, onSubmit }) {
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   return (
-    <div className="popup-with-form">
-      <p>PopupWithForm</p>
+    <div className={`popup ${isOpen ? 'popup_open' : ''}`} onClick={handleOverlayClick}>
+      <div className="popup__container">
+        <button className="popup__close-button" onClick={onClose} aria-label="Cerrar"></button>
+        <h2 className="popup__title">{title}</h2>
+        <form className="popup__form" onSubmit={onSubmit}>
+          {children}
+          <button className="popup__submit-button" type="submit">
+            {buttonText}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

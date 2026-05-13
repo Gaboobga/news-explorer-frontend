@@ -1,11 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  function handleLoginClick() {
+    setIsLoginOpen(true);
+    setIsRegisterOpen(false);
+  }
+
+  function handleRegisterClick() {
+    setIsRegisterOpen(true);
+    setIsLoginOpen(false);
+  }
+
+  function handleClosePopups() {
+    setIsLoginOpen(false);
+    setIsRegisterOpen(false);
+  }
+
+  useEffect(() => {
+    function handleEscClose(e) {
+      if (e.key === 'Escape') {
+        handleClosePopups();
+      }
+    }
+    document.addEventListener('keydown', handleEscClose);
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  }, []);
 
   return (
     <BrowserRouter>
@@ -16,7 +47,7 @@ function App() {
           render={() => (
             <Main
               isLoggedIn={isLoggedIn}
-              onLoginClick={() => {}}
+              onLoginClick={handleLoginClick}
               onSignOut={() => setIsLoggedIn(false)}
             />
           )}
@@ -26,12 +57,24 @@ function App() {
           render={() => (
             <SavedNews
               isLoggedIn={isLoggedIn}
-              onLoginClick={() => {}}
+              onLoginClick={handleLoginClick}
               onSignOut={() => setIsLoggedIn(false)}
             />
           )}
         />
       </Switch>
+      <Login
+        isOpen={isLoginOpen}
+        onClose={handleClosePopups}
+        onLogin={() => {}}
+        onRegisterClick={handleRegisterClick}
+      />
+      <Register
+        isOpen={isRegisterOpen}
+        onClose={handleClosePopups}
+        onRegister={() => {}}
+        onLoginClick={handleLoginClick}
+      />
     </BrowserRouter>
   );
 }

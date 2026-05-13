@@ -1,0 +1,44 @@
+.register__label {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #2f71e5;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.register__input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1b22;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.register__input:focus {
+  border-bottom-color: #2f71e5;
+}
+
+.register__redirect {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #b6bcbf;
+  text-align: center;
+  margin: 16px 0 0;
+}
+
+.register__redirect-button {
+  background: none;
+  border: none;
+  color: #2f71e5;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
