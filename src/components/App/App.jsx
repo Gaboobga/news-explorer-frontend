@@ -21,7 +21,16 @@ function App() {
             />
           )}
         />
-        <Route path="/saved-news" component={SavedNews} />
+        <Route
+          path="/saved-news"
+          render={() => (
+            <SavedNews
+              isLoggedIn={isLoggedIn}
+              onLoginClick={() => {}}
+              onSignOut={() => setIsLoggedIn(false)}
+            />
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );

@@ -46,3 +46,26 @@
   border-bottom: 2px solid #ffffff;
   padding-bottom: 4px;
 }
+
+.navigation__link_dark {
+  color: #1a1b22;
+}
+
+.navigation__link_active-dark {
+  border-bottom: 3px solid #1a1b22;
+}
+
+.navigation__button_dark {
+  color: #1a1b22;
+  border-color: #1a1b22;
+}
+
+.navigation__button_dark:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.navigation__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
