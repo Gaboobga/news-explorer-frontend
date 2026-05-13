@@ -1,0 +1,41 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navigation__link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  padding-bottom: 8px;
+}
+
+.navigation__link_active {
+  border-bottom: 2px solid #ffffff;
+}
+
+.navigation__button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 100px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.navigation__button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navigation__button_logged-in {
+  background: transparent;
+}

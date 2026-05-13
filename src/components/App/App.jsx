@@ -1,13 +1,26 @@
-import { Route, Switch } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
+import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Main
+              isLoggedIn={isLoggedIn}
+              onLoginClick={() => {}}
+              onSignOut={() => setIsLoggedIn(false)}
+            />
+          )}
+        />
         <Route path="/saved-news" component={SavedNews} />
       </Switch>
     </BrowserRouter>

@@ -1,8 +1,27 @@
+import './About.css';
+
 function About() {
   return (
-    <div className="about">
-      <p>About</p>
-    </div>
+    <section className="about">
+      <div className="about__image-container">
+        <img
+          className="about__image"
+          src="https://placehold.co/464x464"
+          alt="Foto del autor"
+        />
+      </div>
+      <div className="about__content">
+        <h2 className="about__title">Acerca del autor</h2>
+        <p className="about__text">
+          Este bloque describe al autor del proyecto. Aquí debe indicar tu
+          nombre, a qué te dedicas y qué tecnologías de desarrollo conoces.
+        </p>
+        <p className="about__text">
+          También puedes hablar de tu experiencia con Practicum, de lo que
+          aprendiste allí y de cómo puedes ayudar a los clientes potenciales.
+        </p>
+      </div>
+    </section>
   );
 }
 
