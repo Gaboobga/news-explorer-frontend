@@ -1,8 +1,48 @@
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
+import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
+import Preloader from '../Preloader/Preloader';
 import './Main.css';
+import perro from '../../images/perro.png';
+import naturaleza from '../../images/naturaleza.png';
+import grandTeton from '../../images/grand_teton.png';
+
+const testArticles = [
+  {
+    url: '1',
+    urlToImage: perro,
+    publishedAt: '4 de noviembre de 2020',
+    title: 'Todo el mundo necesita un lugar de reflexión en la naturaleza',
+    description: 'Desde que leí el influyente libro de Richard Louv...',
+    source: { name: 'TREEHUGGER' },
+  },
+  {
+    url: '2',
+    urlToImage: naturaleza,
+    publishedAt: '19 de febrero de 2019',
+    title: 'La naturaleza te hace mejor',
+    description: 'Milenios atrás ya nos percatamos de ello...',
+    source: { name: 'NATIONAL GEOGRAPHIC' },
+  },
+  {
+    url: '3',
+    urlToImage: grandTeton,
+    publishedAt: '19 de octubre de 2020',
+    title: 'El Grand Teton renueva el histórico Camino de la Cresta',
+    description: 'La unión de los senderos de la Cascada...',
+    source: { name: 'NATIONAL PARKS TRAVELER' },
+  },
+  {
+    url: '4',
+    urlToImage: perro,
+    publishedAt: '5 de enero de 2021',
+    title: 'Artículo extra de prueba',
+    description: 'Descripción de prueba...',
+    source: { name: 'TEST SOURCE' },
+  },
+];
 
 function Main({ isLoggedIn, onLoginClick, onSignOut }) {
   return (
@@ -22,6 +62,11 @@ function Main({ isLoggedIn, onLoginClick, onSignOut }) {
           <SearchForm />
         </div>
       </section>
+      <NewsCardList
+        articles={testArticles}
+        isLoggedIn={isLoggedIn}
+        onLoginClick={onLoginClick}
+      />
       <About />
       <Footer />
     </main>

@@ -10,11 +10,13 @@
   font-weight: 500;
   color: #ffffff;
   text-decoration: none;
-  padding-bottom: 8px;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .navigation__link_active {
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
 }
 
 .navigation__button {
@@ -38,4 +40,9 @@
 
 .navigation__button_logged-in {
   background: transparent;
+}
+
+.navigation__link_active {
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 4px;
 }

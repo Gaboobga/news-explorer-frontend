@@ -1,4 +1,5 @@
 import './About.css';
+import authorImage from '../../images/image_author.png';
 
 function About() {
   return (
@@ -6,7 +7,7 @@ function About() {
       <div className="about__image-container">
         <img
           className="about__image"
-          src="https://placehold.co/464x464"
+          src={authorImage}
           alt="Foto del autor"
         />
       </div>

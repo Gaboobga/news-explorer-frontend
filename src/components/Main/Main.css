@@ -8,18 +8,23 @@
   position: relative;
   min-height: 576px;
   background-color: #1a1b22;
+  background-image: linear-gradient(rgba(26, 27, 34, 0.5), rgba(26, 27, 34, 0.5)), url('../../images/image_header.png');
   background-size: cover;
   background-position: center;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .main__hero-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 160px 40px 80px;
-  max-width: 608px;
+  align-items: center;
+  text-align: center;
+  padding: 80px 40px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .main__title {
@@ -27,7 +32,7 @@
   font-size: 60px;
   font-weight: 400;
   color: #ffffff;
-  margin: 0 0 32px;
+  margin: 0 0 25px;
   line-height: 1.067;
 }
 
@@ -36,6 +41,6 @@
   font-size: 18px;
   font-weight: 400;
   color: #ffffff;
-  margin: 0 0 88px;
+  margin: 0 0 50px;
   line-height: 1.556;
 }
