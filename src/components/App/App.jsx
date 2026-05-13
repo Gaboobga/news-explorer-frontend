@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Main from '../Main/Main';
-import SavedNews from '../SavedNews/SavedNews';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import './App.css';
+import { useState, useEffect } from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Main from "../Main/Main";
+import SavedNews from "../SavedNews/SavedNews";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import "./App.css";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   function handleLoginClick() {
     setIsLoginOpen(true);
@@ -24,17 +26,18 @@ function App() {
   function handleClosePopups() {
     setIsLoginOpen(false);
     setIsRegisterOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   useEffect(() => {
     function handleEscClose(e) {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         handleClosePopups();
       }
     }
-    document.addEventListener('keydown', handleEscClose);
+    document.addEventListener("keydown", handleEscClose);
     return () => {
-      document.removeEventListener('keydown', handleEscClose);
+      document.removeEventListener("keydown", handleEscClose);
     };
   }, []);
 
@@ -73,6 +76,11 @@ function App() {
         isOpen={isRegisterOpen}
         onClose={handleClosePopups}
         onRegister={() => {}}
+        onLoginClick={handleLoginClick}
+      />
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        onClose={handleClosePopups}
         onLoginClick={handleLoginClick}
       />
     </BrowserRouter>
