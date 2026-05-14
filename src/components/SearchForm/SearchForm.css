@@ -47,3 +47,18 @@
 .search-form__button:active {
   background-color: #2a65cc;
 }
+
+@media (max-width: 1024px) {
+  .search-form {
+    max-width: 100%;
+  }
+
+  .search-form__input {
+    height: 56px;
+  }
+
+  .search-form__button {
+    height: 56px;
+    padding: 0 40px;
+  }
+}

@@ -19,8 +19,8 @@
 .main__hero-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   padding: 80px 40px;
   width: 100%;
   max-width: 640px;
@@ -43,4 +43,27 @@
   color: #ffffff;
   margin: 0 0 50px;
   line-height: 1.556;
+}
+
+@media (max-width: 1024px) {
+  .main__hero {
+    justify-content: center;
+  }
+
+  .main__hero-content {
+    padding: 40px 40px;
+    max-width: 600px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .main__title {
+    font-size: 48px;
+    margin: 0 0 16px;
+  }
+
+  .main__subtitle {
+    font-size: 18px;
+    margin: 0 0 32px;
+  }
 }

@@ -29,3 +29,16 @@
 .header__logo_light {
   color: #1a1b22;
 }
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .header {
+    padding: 0 16px;
+    height: 56px;
+  }
+}
