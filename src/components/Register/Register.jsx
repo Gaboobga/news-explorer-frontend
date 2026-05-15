@@ -4,6 +4,7 @@ import './Register.css';
 function Register({ isOpen, onClose, onRegister, onLoginClick }) {
   function handleSubmit(e) {
     e.preventDefault();
+    onRegister();
   }
 
   return (

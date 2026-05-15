@@ -29,6 +29,11 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
+  function handleRegisterSuccess() {
+    handleClosePopups();
+    setIsInfoTooltipOpen(true);
+  }
+
   useEffect(() => {
     function handleEscClose(e) {
       if (e.key === "Escape") {
@@ -75,7 +80,7 @@ function App() {
       <Register
         isOpen={isRegisterOpen}
         onClose={handleClosePopups}
-        onRegister={() => {}}
+        onRegister={handleRegisterSuccess}
         onLoginClick={handleLoginClick}
       />
       <InfoTooltip

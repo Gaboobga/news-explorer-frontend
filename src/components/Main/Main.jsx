@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
+import NotFound from '../NotFound/NotFound';
 import './Main.css';
 import perro from '../../images/perro.png';
 import naturaleza from '../../images/naturaleza.png';
@@ -45,6 +47,20 @@ const testArticles = [
 ];
 
 function Main({ isLoggedIn, onLoginClick, onSignOut }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [articles, setArticles] = useState([]);
+
+  function handleSearch() {
+    setIsLoading(true);
+    setHasSearched(false);
+    setTimeout(() => {
+      setIsLoading(false);
+      setHasSearched(true);
+      setArticles(testArticles);
+    }, 2000);
+  }
+
   return (
     <main className="main">
       <section className="main__hero">
@@ -59,14 +75,18 @@ function Main({ isLoggedIn, onLoginClick, onSignOut }) {
           <p className="main__subtitle">
             Encuentra las últimas noticias sobre cualquier tema y guárdalas en tu cuenta personal
           </p>
-          <SearchForm />
+          <SearchForm onSearch={handleSearch} />
         </div>
       </section>
-      <NewsCardList
-        articles={testArticles}
-        isLoggedIn={isLoggedIn}
-        onLoginClick={onLoginClick}
-      />
+      {isLoading && <Preloader />}
+      {!isLoading && hasSearched && articles.length > 0 && (
+        <NewsCardList
+          articles={articles}
+          isLoggedIn={isLoggedIn}
+          onLoginClick={onLoginClick}
+        />
+      )}
+      {!isLoading && hasSearched && articles.length === 0 && <NotFound />}
       <About />
       <Footer />
     </main>
