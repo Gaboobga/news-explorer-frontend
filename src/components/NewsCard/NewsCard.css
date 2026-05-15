@@ -81,3 +81,27 @@
   letter-spacing: 0.05em;
   margin: 0;
 }
+
+@media (max-width: 1024px) {
+  .news-card__title {
+    font-size: 18px;
+  }
+
+  .news-card__description {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .news-card__image-container {
+    height: 196px;
+  }
+
+  .news-card__title {
+    font-size: 22px;
+  }
+
+  .news-card__description {
+    font-size: 16px;
+  }
+}

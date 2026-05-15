@@ -36,3 +36,37 @@
 .saved-news-header__keywords-list {
   font-weight: 700;
 }
+
+@media (max-width: 1024px) {
+  .saved-news-header {
+    padding: 24px 40px 40px;
+  }
+
+  .saved-news-header__title {
+    font-size: 30px;
+    max-width: 100%;
+  }
+
+  .saved-news-header__label {
+    margin: 0 0 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .saved-news-header {
+    padding: 24px 16px 32px;
+  }
+
+  .saved-news-header__title {
+    font-size: 30px;
+  }
+
+  .saved-news-header__label {
+    font-size: 14px;
+    margin: 0 0 16px;
+  }
+
+  .saved-news-header__keywords {
+    font-size: 16px;
+  }
+}

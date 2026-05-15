@@ -62,3 +62,34 @@
     padding: 0 40px;
   }
 }
+
+@media (max-width: 520px) {
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 8px;
+    overflow: visible;
+    background: transparent;
+    gap: 16px;
+  }
+
+  .search-form__input {
+    flex: none;
+    min-width: 0;
+    border-radius: 100px;
+    background-color: #ffffff;
+    padding: 0 24px;
+    height: 56px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-form__button {
+    flex: none;
+    border-radius: 100px;
+    height: 56px;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}

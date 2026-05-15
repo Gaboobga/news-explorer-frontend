@@ -1,9 +1,9 @@
 import './NewsCard.css';
 import saveNormal from '../../images/save_normal.svg';
-import saveHover from '../../images/save_hover.svg';
-import saveSelect from '../../images/save_select.svg';
+import trashIcon from '../../images/trash_icon.svg';
+import trashIconHover from '../../images/trash_icon_hover.svg';
 
-function NewsCard({ article, isLoggedIn, onLoginClick }) {
+function NewsCard({ article, isLoggedIn, onLoginClick, isSaved }) {
   return (
     <article className="news-card">
       <div className="news-card__image-container">
@@ -12,8 +12,12 @@ function NewsCard({ article, isLoggedIn, onLoginClick }) {
           src={article.urlToImage}
           alt={article.title}
         />
-        <button className="news-card__save-button" aria-label="Guardar artículo">
-          <img className="news-card__save-icon" src={saveNormal} alt="Guardar" />
+        <button className="news-card__save-button" aria-label={isSaved ? 'Eliminar artículo' : 'Guardar artículo'}>
+          <img
+            className="news-card__save-icon"
+            src={isSaved ? trashIcon : saveNormal}
+            alt={isSaved ? 'Eliminar' : 'Guardar'}
+          />
         </button>
       </div>
       <div className="news-card__content">

@@ -2,7 +2,7 @@ import React from 'react';
 import NewsCard from '../NewsCard/NewsCard';
 import './NewsCardList.css';
 
-function NewsCardList({ articles, isLoggedIn, onLoginClick }) {
+function NewsCardList({ articles, isLoggedIn, onLoginClick, isSaved }) {
   const [visibleCount, setVisibleCount] = React.useState(3);
 
   function handleShowMore() {
@@ -11,7 +11,7 @@ function NewsCardList({ articles, isLoggedIn, onLoginClick }) {
 
   return (
     <section className="news-card-list">
-      <h2 className="news-card-list__title">Resultados de la búsqueda</h2>
+      {!isSaved && <h2 className="news-card-list__title">Resultados de la búsqueda</h2>}
       <ul className="news-card-list__grid">
         {articles.slice(0, visibleCount).map((article) => (
           <li key={article.url} className="news-card-list__item">
@@ -19,6 +19,7 @@ function NewsCardList({ articles, isLoggedIn, onLoginClick }) {
               article={article}
               isLoggedIn={isLoggedIn}
               onLoginClick={onLoginClick}
+              isSaved={isSaved}
             />
           </li>
         ))}

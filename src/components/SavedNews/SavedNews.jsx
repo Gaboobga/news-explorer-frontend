@@ -56,6 +56,7 @@ function SavedNews({ isLoggedIn, onLoginClick, onSignOut }) {
         articles={savedArticles}
         isLoggedIn={isLoggedIn}
         onLoginClick={onLoginClick}
+        isSaved={true}
       />
       <Footer />
     </div>

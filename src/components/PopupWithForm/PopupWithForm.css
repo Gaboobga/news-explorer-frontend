@@ -74,3 +74,23 @@
   color: #b6bcbf;
   cursor: default;
 }
+
+@media (max-width: 520px) {
+  .popup__container {
+    width: 100%;
+    min-height: 90vh;
+    position: absolute;
+    bottom: 0;
+    border-radius: 16px 16px 0 0;
+    padding: 24px 16px;
+  }
+
+  .popup__close-button {
+    top: -40px;
+    right: 16px;
+  }
+
+  .popup__title {
+    font-size: 20px;
+  }
+}
