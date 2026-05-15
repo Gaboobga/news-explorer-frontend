@@ -1,7 +1,6 @@
 import './NewsCard.css';
 import saveNormal from '../../images/save_normal.svg';
 import trashIcon from '../../images/trash_icon.svg';
-import trashIconHover from '../../images/trash_icon_hover.svg';
 
 function NewsCard({ article, isLoggedIn, onLoginClick, isSaved }) {
   return (
@@ -12,6 +11,9 @@ function NewsCard({ article, isLoggedIn, onLoginClick, isSaved }) {
           src={article.urlToImage}
           alt={article.title}
         />
+        {isSaved && article.keyword && (
+          <span className="news-card__keyword">{article.keyword}</span>
+        )}
         <button className="news-card__save-button" aria-label={isSaved ? 'Eliminar artículo' : 'Guardar artículo'}>
           <img
             className="news-card__save-icon"
