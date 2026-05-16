@@ -45,6 +45,16 @@
   line-height: 1.556;
 }
 
+.main__error {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1a1b22;
+  text-align: center;
+  padding: 80px 40px;
+  background-color: #f5f6f7;
+}
+
 @media (max-width: 1024px) {
   .main__hero {
     justify-content: center;
