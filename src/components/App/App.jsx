@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import Main from "../Main/Main";
 import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
@@ -63,7 +63,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route
           exact
@@ -107,7 +107,7 @@ function App() {
         onClose={handleClosePopups}
         onLoginClick={handleLoginClick}
       />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
