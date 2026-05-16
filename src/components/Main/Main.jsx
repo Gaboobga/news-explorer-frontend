@@ -9,26 +9,19 @@ import NotFound from '../NotFound/NotFound';
 import { searchNews } from '../../utils/NewsApi';
 import './Main.css';
 
-function Main({ isLoggedIn, onLoginClick, onSignOut }) {
+function Main({ isLoggedIn, onLoginClick, onSignOut, articles, hasSearched, onSearchResults }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-  const [articles, setArticles] = useState([]);
   const [searchError, setSearchError] = useState('');
 
   function handleSearch(query) {
     setIsLoading(true);
-    setHasSearched(false);
     setSearchError('');
     searchNews(query)
       .then((data) => {
-        setArticles(data.articles);
-        setHasSearched(true);
-        localStorage.setItem('articles', JSON.stringify(data.articles));
-        localStorage.setItem('lastQuery', query);
+        onSearchResults(data.articles);
       })
       .catch(() => {
         setSearchError('Lo sentimos, algo ha salido mal durante la solicitud. Es posible que haya un problema de conexión o que el servidor no funcione. Por favor, inténtalo más tarde.');
-        setHasSearched(true);
       })
       .finally(() => {
         setIsLoading(false);

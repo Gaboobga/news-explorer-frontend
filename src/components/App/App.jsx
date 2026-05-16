@@ -4,14 +4,24 @@ import Main from "../Main/Main";
 import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import "./App.css";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  useEffect(() => {
+    const savedArticles = localStorage.getItem('articles');
+    if (savedArticles) {
+      setArticles(JSON.parse(savedArticles));
+      setHasSearched(true);
+    }
+  }, []);
 
   function handleLoginClick() {
     setIsLoginOpen(true);
@@ -32,6 +42,12 @@ function App() {
   function handleRegisterSuccess() {
     handleClosePopups();
     setIsInfoTooltipOpen(true);
+  }
+
+  function handleSearchResults(results) {
+    setArticles(results);
+    setHasSearched(true);
+    localStorage.setItem('articles', JSON.stringify(results));
   }
 
   useEffect(() => {
@@ -57,6 +73,9 @@ function App() {
               isLoggedIn={isLoggedIn}
               onLoginClick={handleLoginClick}
               onSignOut={() => setIsLoggedIn(false)}
+              articles={articles}
+              hasSearched={hasSearched}
+              onSearchResults={handleSearchResults}
             />
           )}
         />
