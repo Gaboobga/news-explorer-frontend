@@ -13,7 +13,7 @@ function Navigation({ isLoggedIn, userName, onLoginClick, onSignOut, isLight, is
   }
 
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${isMenuOpen ? 'navigation_open' : ''}`}>
       {isLoggedIn ? (
         <div className="navigation__links">
           <div className="navigation__links-group">

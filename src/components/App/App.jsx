@@ -5,6 +5,7 @@ import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import ConfirmSignOut from "../ConfirmSignOut/ConfirmSignOut";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as MainApi from "../../utils/MainApi";
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -16,6 +17,7 @@ function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isConfirmSignOutOpen, setIsConfirmSignOutOpen] = useState(false);
   const [articles, setArticles] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [authError, setAuthError] = useState('');
@@ -58,6 +60,7 @@ function App() {
     setIsLoginOpen(false);
     setIsRegisterOpen(false);
     setIsInfoTooltipOpen(false);
+    setIsConfirmSignOutOpen(false);
     setAuthError('');
   }
 
@@ -92,6 +95,10 @@ function App() {
       });
   }
 
+  function handleSignOutClick() {
+    setIsConfirmSignOutOpen(true);
+  }
+
   function handleSignOut() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('articles');
@@ -99,6 +106,7 @@ function App() {
     setCurrentUser(null);
     setArticles([]);
     setHasSearched(false);
+    setIsConfirmSignOutOpen(false);
   }
 
   function handleSearchResults(results) {
@@ -130,7 +138,7 @@ function App() {
               <Main
                 isLoggedIn={isLoggedIn}
                 onLoginClick={handleLoginClick}
-                onSignOut={handleSignOut}
+                onSignOut={handleSignOutClick}
                 articles={articles}
                 hasSearched={hasSearched}
                 onSearchResults={handleSearchResults}
@@ -142,7 +150,7 @@ function App() {
             component={SavedNews}
             isLoggedIn={isLoggedIn}
             onLoginClick={handleLoginClick}
-            onSignOut={handleSignOut}
+            onSignOut={handleSignOutClick}
           />
         </Switch>
         <Login
@@ -163,6 +171,11 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={handleClosePopups}
           onLoginClick={handleLoginClick}
+        />
+        <ConfirmSignOut
+          isOpen={isConfirmSignOutOpen}
+          onClose={handleClosePopups}
+          onConfirm={handleSignOut}
         />
       </HashRouter>
     </CurrentUserContext.Provider>
