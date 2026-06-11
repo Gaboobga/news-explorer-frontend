@@ -5,15 +5,36 @@ import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import ConfirmSignOut from "../ConfirmSignOut/ConfirmSignOut";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import * as MainApi from "../../utils/MainApi";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isConfirmSignOutOpen, setIsConfirmSignOutOpen] = useState(false);
   const [articles, setArticles] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      MainApi.getCurrentUser()
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch(() => {
+          localStorage.removeItem('jwt');
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const savedArticles = localStorage.getItem('articles');
@@ -24,11 +45,13 @@ function App() {
   }, []);
 
   function handleLoginClick() {
+    setAuthError('');
     setIsLoginOpen(true);
     setIsRegisterOpen(false);
   }
 
   function handleRegisterClick() {
+    setAuthError('');
     setIsRegisterOpen(true);
     setIsLoginOpen(false);
   }
@@ -37,11 +60,53 @@ function App() {
     setIsLoginOpen(false);
     setIsRegisterOpen(false);
     setIsInfoTooltipOpen(false);
+    setIsConfirmSignOutOpen(false);
+    setAuthError('');
   }
 
   function handleRegisterSuccess() {
     handleClosePopups();
     setIsInfoTooltipOpen(true);
+  }
+
+  function handleLogin(email, password) {
+    MainApi.login(email, password)
+      .then((data) => {
+        localStorage.setItem('jwt', data.token);
+        return MainApi.getCurrentUser();
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        handleClosePopups();
+      })
+      .catch(() => {
+        setAuthError('Correo electrónico o contraseña incorrectos');
+      });
+  }
+
+  function handleRegister(email, password, name) {
+    MainApi.register(email, password, name)
+      .then(() => {
+        handleRegisterSuccess();
+      })
+      .catch(() => {
+        setAuthError('Este correo electrónico ya está registrado');
+      });
+  }
+
+  function handleSignOutClick() {
+    setIsConfirmSignOutOpen(true);
+  }
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('articles');
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    setArticles([]);
+    setHasSearched(false);
+    setIsConfirmSignOutOpen(false);
   }
 
   function handleSearchResults(results) {
@@ -63,51 +128,57 @@ function App() {
   }, []);
 
   return (
-    <HashRouter>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Main
-              isLoggedIn={isLoggedIn}
-              onLoginClick={handleLoginClick}
-              onSignOut={() => setIsLoggedIn(false)}
-              articles={articles}
-              hasSearched={hasSearched}
-              onSearchResults={handleSearchResults}
-            />
-          )}
+    <CurrentUserContext.Provider value={currentUser}>
+      <HashRouter>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Main
+                isLoggedIn={isLoggedIn}
+                onLoginClick={handleLoginClick}
+                onSignOut={handleSignOutClick}
+                articles={articles}
+                hasSearched={hasSearched}
+                onSearchResults={handleSearchResults}
+              />
+            )}
+          />
+          <ProtectedRoute
+            path="/saved-news"
+            component={SavedNews}
+            isLoggedIn={isLoggedIn}
+            onLoginClick={handleLoginClick}
+            onSignOut={handleSignOutClick}
+          />
+        </Switch>
+        <Login
+          isOpen={isLoginOpen}
+          onClose={handleClosePopups}
+          onLogin={handleLogin}
+          onRegisterClick={handleRegisterClick}
+          authError={authError}
         />
-        <Route
-          path="/saved-news"
-          render={() => (
-            <SavedNews
-              isLoggedIn={isLoggedIn}
-              onLoginClick={handleLoginClick}
-              onSignOut={() => setIsLoggedIn(false)}
-            />
-          )}
+        <Register
+          isOpen={isRegisterOpen}
+          onClose={handleClosePopups}
+          onRegister={handleRegister}
+          onLoginClick={handleLoginClick}
+          authError={authError}
         />
-      </Switch>
-      <Login
-        isOpen={isLoginOpen}
-        onClose={handleClosePopups}
-        onLogin={() => {}}
-        onRegisterClick={handleRegisterClick}
-      />
-      <Register
-        isOpen={isRegisterOpen}
-        onClose={handleClosePopups}
-        onRegister={handleRegisterSuccess}
-        onLoginClick={handleLoginClick}
-      />
-      <InfoTooltip
-        isOpen={isInfoTooltipOpen}
-        onClose={handleClosePopups}
-        onLoginClick={handleLoginClick}
-      />
-    </HashRouter>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={handleClosePopups}
+          onLoginClick={handleLoginClick}
+        />
+        <ConfirmSignOut
+          isOpen={isConfirmSignOutOpen}
+          onClose={handleClosePopups}
+          onConfirm={handleSignOut}
+        />
+      </HashRouter>
+    </CurrentUserContext.Provider>
   );
 }
 

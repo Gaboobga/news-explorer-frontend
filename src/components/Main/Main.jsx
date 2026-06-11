@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
@@ -7,15 +7,19 @@ import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
 import { searchNews } from '../../utils/NewsApi';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import * as MainApi from '../../utils/MainApi';
 import './Main.css';
 
 function Main({ isLoggedIn, onLoginClick, onSignOut, articles, hasSearched, onSearchResults }) {
   const [isLoading, setIsLoading] = useState(false);
   const [searchError, setSearchError] = useState('');
+  const currentUser = useContext(CurrentUserContext);
 
   function handleSearch(query) {
     setIsLoading(true);
     setSearchError('');
+    localStorage.setItem('lastQuery', query);
     searchNews(query)
       .then((data) => {
         onSearchResults(data.articles);
@@ -28,12 +32,25 @@ function Main({ isLoggedIn, onLoginClick, onSignOut, articles, hasSearched, onSe
       });
   }
 
+  function handleSaveArticle(article) {
+    MainApi.saveArticle({
+      keyword: localStorage.getItem('lastQuery') || 'General',
+      title: article.title,
+      text: article.description,
+      date: article.publishedAt,
+      source: article.source.name,
+      link: article.url,
+      image: article.urlToImage,
+    })
+      .catch((err) => console.error(err));
+  }
+
   return (
     <main className="main">
       <section className="main__hero">
         <Header
           isLoggedIn={isLoggedIn}
-          userName="Elise"
+          userName={currentUser ? currentUser.name : ''}
           onLoginClick={onLoginClick}
           onSignOut={onSignOut}
         />
@@ -54,6 +71,7 @@ function Main({ isLoggedIn, onLoginClick, onSignOut, articles, hasSearched, onSe
           articles={articles}
           isLoggedIn={isLoggedIn}
           onLoginClick={onLoginClick}
+          onSaveArticle={handleSaveArticle}
         />
       )}
       {!isLoading && hasSearched && !searchError && articles.length === 0 && (
