@@ -18,16 +18,16 @@ News Explorer es una aplicación web full stack que permite a los usuarios busca
 ## 📸 Capturas de pantalla
 
 ### Página Principal
-![Página Principal](./src/images/Foto_Pantalla_Principal.PNG)
+![Página Principal](./src/images/Foto_Pantalla_Principal.png)
 
 ### Iniciar Sesión
-![Iniciar Sesión](./src/images/Foto_Inicio_Sesion.PNG)
+![Iniciar Sesión](./src/images/Foto_Inicio_Sesion.png)
 
 ### Artículos Guardados
-![Artículos Guardados](./src/images/Foto_Articulos_Guardados.PNG)
+![Artículos Guardados](./src/images/Foto_Articulos_Guardados.png)
 
 ### Acerca del Autor
-![Acerca del Autor](./src/images/Foto_Acerca_Autor.PNG)
+![Acerca del Autor](./src/images/Foto_Acerca_Autor.png)
 
 ## 🛠️ Tecnologías utilizadas
 
