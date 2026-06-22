@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './NewsCard.css';
 import saveNormal from '../../images/save_normal.svg';
+import saveHover from '../../images/save_hover.svg';
 import saveSelect from '../../images/save_select.svg';
 import trashIcon from '../../images/trash_icon.svg';
 import trashIconHover from '../../images/trash_icon_hover.svg';
@@ -10,6 +11,7 @@ function NewsCard({ article, isLoggedIn, onLoginClick, isSaved, onSaveArticle, o
   const [showTooltip, setShowTooltip] = useState(false);
   const [isSavedLocal, setIsSavedLocal] = useState(false);
   const [isTrashHover, setIsTrashHover] = useState(false);
+  const [isSaveHover, setIsSaveHover] = useState(false);
 
   function handleSaveClick() {
     if (!isLoggedIn) {
@@ -30,6 +32,7 @@ function NewsCard({ article, isLoggedIn, onLoginClick, isSaved, onSaveArticle, o
   function getSaveIcon() {
     if (isSaved) return isTrashHover ? trashIconHover : trashIcon;
     if (isSavedLocal) return saveSelect;
+    if (isSaveHover) return saveHover;
     return saveNormal;
   }
 
@@ -52,8 +55,8 @@ function NewsCard({ article, isLoggedIn, onLoginClick, isSaved, onSaveArticle, o
             className={`news-card__save-button ${isSavedLocal ? 'news-card__save-button_active' : ''}`}
             aria-label={isSaved ? 'Eliminar artículo' : 'Guardar artículo'}
             onClick={handleSaveClick}
-            onMouseEnter={() => { setShowTooltip(true); setIsTrashHover(true); }}
-            onMouseLeave={() => { setShowTooltip(false); setIsTrashHover(false); }}
+            onMouseEnter={() => { setShowTooltip(true); setIsTrashHover(true); setIsSaveHover(true); }}
+            onMouseLeave={() => { setShowTooltip(false); setIsTrashHover(false); setIsSaveHover(false); }}
           >
             <img
               className="news-card__save-icon"
